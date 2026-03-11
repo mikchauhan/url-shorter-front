@@ -1,0 +1,66 @@
+<section class="max-w-4xl mx-auto p-6 space-y-6">
+  <h2 class="text-3xl font-bold text-gray-800 text-center">
+    URL Analytics
+  </h2>
+
+  <!-- Search -->
+  <div class="bg-white p-6 rounded-xl shadow flex gap-3">
+    <input
+      type="text"
+      [(ngModel)]="shortCode"
+      placeholder="Enter short code (abcd)"
+      class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+    />
+    <button
+      (click)="fetchAnalytics()"
+      class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"
+    >
+      View
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <p *ngIf="loading" class="text-center text-gray-500">
+    Loading analytics...
+  </p>
+
+  <!-- Error -->
+  <p *ngIf="error" class="text-center text-red-500">
+    {{ error }}
+  </p>
+
+  <!-- Analytics Card -->
+  <div *ngIf="analytics" class="bg-white p-6 rounded-xl shadow space-y-4">
+    <div>
+      <p class="text-sm text-gray-500">Original URL</p>
+      <p class="break-all text-gray-800">{{ analytics.originalUrl }}</p>
+    </div>
+
+    <div>
+      <p class="text-sm text-gray-500">Short URL</p>
+      <a
+        [href]="analytics.shortUrl"
+        target="_blank"
+        class="text-indigo-600 font-medium hover:underline"
+      >
+        {{ analytics.shortUrl }}
+      </a>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-gray-100 p-4 rounded-lg text-center">
+        <p class="text-sm text-gray-500">Clicks</p>
+        <p class="text-2xl font-bold text-indigo-600">
+          {{ analytics.clicks }}
+        </p>
+      </div>
+
+      <div class="bg-gray-100 p-4 rounded-lg text-center">
+        <p class="text-sm text-gray-500">Expires At</p>
+        <p class="text-gray-800">
+          {{ analytics.expiresAt | date: 'mediumDate' }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
